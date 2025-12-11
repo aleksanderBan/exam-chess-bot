@@ -9,25 +9,19 @@ def get_move(board, depth):
         print("PLAYING OPENING MOVE:", opening_move)
         return opening_move
 
-    top_move = None
-    
+    best_move = None
     maximizing = board.turn
-    if maximizing:
-      top_eval = -np.inf
-    else:
-      top_eval = np.inf
+    best_eval = -np.inf if maximizing else np.inf
 
     for move in board.legal_moves:
         board.push(move)
-        eval = minimax(board, depth - 1, -np.inf, np.inf, not maximizing)
+        val = minimax(board, depth - 1, -np.inf, np.inf, not maximizing)
         board.pop()
 
-        if maximizing and eval > top_eval:
-            top_move = move
-            top_eval = eval
-        elif not maximizing and eval < top_eval:
-            top_move = move
-            top_eval = eval
+        if maximizing and val > best_eval:
+            best_eval, best_move = val, move
+        elif not maximizing and val < best_eval:
+            best_eval, best_move = val, move
 
-    print("CHOSEN MOVE:", top_move, "WITH EVAL:", top_eval)
-    return top_move
+    print("CHOSEN MOVE:", best_move, "WITH EVAL:", best_eval)
+    return best_move

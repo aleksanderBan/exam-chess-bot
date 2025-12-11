@@ -25,10 +25,10 @@ def minimax(board, depth, alpha, beta, maximizing_player):
         max_eval = -np.inf
         for move in moves:
             board.push(move)
-            eval = minimax(board, depth - 1, alpha, beta, False)
+            val = minimax(board, depth - 1, alpha, beta, False)
             board.pop()
-            max_eval = max(max_eval, eval)
-            alpha = max(alpha, eval)
+            max_eval = max(max_eval, val)
+            alpha = max(alpha, val)
             if beta <= alpha:
                 break
         return max_eval
@@ -36,10 +36,10 @@ def minimax(board, depth, alpha, beta, maximizing_player):
         min_eval = np.inf
         for move in moves:
             board.push(move)
-            eval = minimax(board, depth - 1, alpha, beta, True)
+            val = minimax(board, depth - 1, alpha, beta, True)
             board.pop()
-            min_eval = min(min_eval, eval)
-            beta = min(beta, eval)
+            min_eval = min(min_eval, val)
+            beta = min(beta, val)
             if beta <= alpha:
                 break
         return min_eval

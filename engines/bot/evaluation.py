@@ -13,14 +13,9 @@ PIECE_TABLES = {
 
 def get_evaluation(board):
     if board.is_checkmate():
-        if board.turn:
-            return -9999
-        else:
-            return 9999
-    if board.is_stalemate():
-            return 0
-    if board.is_insufficient_material():
-            return 0
+        return -9999 if board.turn else 9999
+    if board.is_stalemate() or board.is_insufficient_material():
+        return 0
 
     eval = get_material(board)
 
